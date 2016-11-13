@@ -148,7 +148,7 @@
 											</c:otherwise>
 
 										</c:choose>
-
+                                     </tr>
 									<tr>
 
 										<form:input path="id" hidden="true" />
@@ -179,6 +179,22 @@
 
 
 									<tr>
+
+<tr>
+
+										<td><form:label path="quantity">
+
+												<spring:message text="quantity" />
+
+											</form:label></td>
+
+										<td><form:input path="quantity" required="true" /></td>
+
+									</tr>
+
+
+									<tr>
+
 
 										<td><form:label path="description">
 
@@ -225,18 +241,18 @@
 												items="${categoryList}" itemValue="name" itemLabel="name" /></td>
 
 									</tr>
+                                    <tr>
 
+										<td><form:label path="image">
 
-									<tr>
+												<spring:message text="Image" />
 
+											</form:label></td>
 
-
-										</td>
+										<td><form:input path="image" type="file" /></td>
 
 									</tr>
-
-
-									<tr>
+					                <tr>
 
 										<td colspan="2"><c:if test="${!empty product.name}">
 
@@ -253,19 +269,6 @@
 											</c:if></td>
 
 									</tr>
-																		<tr>
-
-										<td><form:label path="image">
-
-												<spring:message text="Image" />
-
-											</form:label></td>
-
-										<td><form:input path="image" type="file" /></td>
-
-									</tr>
-									
-
 								</table>
 
 							</form:form>
@@ -301,13 +304,13 @@
 										<th width="200">Product Description</th>
 
 										<th width="80">Price</th>
-
+										<th width="80">Quantity</th>
 										
 
 										<th width="80">Product Category</th>
 
 										<th width="80">Product Supplier</th>
-
+										<th width="80">Product Image</th>
 										<th width="60">Edit</th>
 
 										<th width="60">Delete</th>
@@ -325,11 +328,16 @@
 											<td>${product.description}</td>
 
 											<td>${product.price}</td>
+											<td>${product.quantity}</td>
 
 
-											<td>${product.category.name}</td>
+												
+
+										
+       										<td>${product.category.name}</td>
 
 											<td>${product.supplier.name}</td>
+											<td><img src="E:/image/${product.name }.jpg" width="200" height="133"/> </td>
 
 											<td><a
 
@@ -357,7 +365,7 @@
 
 		</div>
 
-	</div>
+	
 
 </center>
 

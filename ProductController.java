@@ -1,6 +1,7 @@
 package org.niit.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -47,7 +48,7 @@ public class ProductController {
 	 * @Qualifier(value="productDAO") public void setProductDAO(ProductDAO ps){
 	 * this.productDAO = ps; }
 	 */
-  private String path="E:\\aks\\CopyofShopCart 1\\src\\main\\webapp\\resources";
+  
 	@RequestMapping(value = "/products", method = RequestMethod.GET)
 	public String listProducts(Model model) {
 		model.addAttribute("product", new Product());
@@ -77,7 +78,20 @@ public class ProductController {
 		
 		product.setCategory(category);
 		product.setSupplier(supplier);
-	    MultipartFile file=product.getImage();
+	    MultipartFile Image=product.getImage();
+	    Path path= Paths.get("/image/"+product.getName()+".jpg");
+
+        System.out.println(path.toString());
+        if(Image!=null && !Image.isEmpty()){
+
+            try {
+                Image.transferTo(new File(path.toString()));
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException("Product Image Saving Failed ",e);
+
+            }
+        }
 		product.setCategory_id(category.getId());
 		product.setSupplier_id(supplier.getId());
 		productDAO.saveOrUpdate(product);
@@ -91,7 +105,7 @@ public class ProductController {
 
 		try {
 			productDAO.delete(id);
-			model.addAttribute("message", "Successfully Added");
+			model.addAttribute("message", "Successfully removed");
 		} catch (Exception e) {
 			model.addAttribute("message", e.getMessage());
 			e.printStackTrace();
